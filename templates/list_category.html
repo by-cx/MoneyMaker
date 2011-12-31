@@ -1,0 +1,36 @@
+{% extends "index.html" %}
+{% load i18n %}
+
+{% block content %}
+    <h1>Categories</h1>
+
+    <a href="{% url category_add %}">{% trans "Add new item" %}</a>
+
+    <table>
+        <thead>
+        <tr>
+            <th>{% trans "Name" %}</th>
+            <th>{% trans "Note" %}</th>
+            <th>{% trans "Action" %}</th>
+        </tr>
+        </thead>
+        {% if object_list %}
+            <tbody id="objects_list">
+            {% for object in object_list %}
+                <tr>
+                    <td>{{ object.name }}</td>
+                    <td><em>{{ object.note }}</em></td>
+                    <td>
+                        <a href="{% url category_update pk=object.id %}" title="{% trans "Update" %}">{% trans "Update" %}</a>
+                        <a href="{% url category_remove pk=object.id %}" title="{% trans "Delete" %}" class="red">{% trans "Delete" %}</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        {% endif %}
+    </table>
+
+    <div class="pagination">
+        {% include "paginator.html" %}
+    </div>
+{% endblock %}

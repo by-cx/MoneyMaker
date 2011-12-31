@@ -1,0 +1,230 @@
+//@import url("/m/css/bootstrap.less");
+
+/*	Resets
+	------	*/
+
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6,
+p, blockquote, pre, a, abbr, address, cite, code, del, dfn, em,
+img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, hr,
+dl, dt, dd, ol, ul, li, fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figure, figcaption, hgroup,
+menu, footer, header, nav, section, summary, time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+article, aside, canvas, figure, figure img, figcaption, hgroup,
+footer, header, nav, section, audio, video {
+	display: block;
+}
+
+a img {border: 0;}
+
+/*     Colors
+       ------
+                  */
+
+@header-background: #164874;
+@border-color: #152F46;
+@less-border-color: #90A9BF;
+@a-color: #164874;
+@title-color: #152F46;
+@title-text-color: white;
+
+
+/*	Typography presets
+	------------------	*/
+
+.gigantic {
+	font-size: 60px;
+	line-height: 68px;
+	letter-spacing: -2px;
+}
+
+.huge {
+	font-size: 26px;
+	line-height: 36px;
+	letter-spacing: -1px;
+	color: white;
+	margin-left: 30px;
+
+	a {
+		color: white;
+		text-decoration: none;
+	}
+	a:hover {
+		text-decoration: none;
+	}
+}
+
+.large, h2 {
+	font-size: 20px;
+	line-height: 32px;
+	margin: 20px 0 15px 0;
+	color: @a-color;
+}
+
+.bigger, h3 {
+	font-size: 16px;
+	line-height: 20px;
+	margin: 30px 0 15px 0;
+	color: @a-color;
+}
+
+p {
+	margin: 10px 0 10px 10px;
+}
+
+body {
+	//font: 12px/16px Georgia, serif;
+	line-height: 1.5;
+	font-family: 'Istok Web', sans-serif;
+    font-size: 13px;
+}
+
+.small, small {
+	font-size: 12px;
+	line-height: 15px;
+	font-weight: 200;
+}
+
+a {
+    color: @a-color;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Selection colours (easy to forget) */
+
+::selection 	 	{background: rgb(255,255,158);}
+::-moz-selection 	{background: rgb(255,255,158);}
+img::selection 		{background: transparent;}
+img::-moz-selection	{background: transparent;}
+body {-webkit-tap-highlight-color: rgb(255,255,158);}
+
+/* Interface */
+
+menu {
+    width: 200px;
+    float: left;
+
+    ul {
+        margin: 0px 10px 20px 10px;
+        border: 1px solid @border-color;
+
+        li {
+            padding: 5px;
+            padding: 1px 3px 1px 3px;
+
+            a:hover {
+                margin-left: 5px;
+                text-decoration: none;
+                color: lime;
+            }
+
+            .active {
+                margin-left: 5px;
+                text-decoration: none;
+                color: red;
+                font-weight: bold;
+            }
+        }
+
+        .subhead {
+                padding: 1px 3px 1px 3px;
+                background-color: @less-border-color;
+                color: @title-text-color;
+            }
+
+        li:first-child {
+            padding: 1px 3px 1px 3px;
+            background-color: @title-color;
+            color: @title-text-color;
+        }
+
+    }
+
+}
+
+article {
+    border: 1px solid @border-color;
+    margin: 10px 10px 10px 210px;
+    padding: 5px 15px 5px 15px;
+
+    table {
+        margin: 20px 0 20px;
+        text-align: left;
+        width: 100%;
+
+        td {
+            padding: 5px;
+            vertical-align: top;
+        }
+
+        tfoot {
+            padding: 40px 0;
+        }
+    }
+
+    .border-bottom {
+        border-bottom: 3px solid @border-color;
+    }
+
+    #notifications {
+        list-style-type: none;
+
+        li.error {
+            background-color: #fdd1d1;
+            border: solid 1px #dc8787;
+            list-style-type: none;
+            padding: 5px;
+        }
+        li.info {
+            background-color: #dde4fe;
+            border: solid 1px #94a8e8;
+            list-style-type: none;
+            padding: 5px;
+        }
+        li.warning {
+            background-color: #fefbd4;
+            border: solid 1px #e6db54;
+            list-style-type: none;
+            padding: 5px;
+        }
+        li.success {
+            background-color: #d8fed1;
+            border: solid 1px #8ad17f;
+            list-style-type: none;
+            padding: 5px;
+        }
+
+    }
+
+    #deps {
+        margin: 0 0 0 20px;
+    }
+}
+
+.red {
+    color: red;
+}
+
+.yellow-bg {
+    background-color: #C8FFB2;
+}
+
+.red-bg {
+    background-color: #E6C0B9;
+}
+.green-bg {
+    background-color: #CBFFBF;
+}
+
+.blue-bg {
+    background-color: #AFD0FF;
+}

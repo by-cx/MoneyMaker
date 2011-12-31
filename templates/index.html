@@ -1,0 +1,46 @@
+<!DOCTYPE html>{% load uni_form_tags %}{% load i18n %}
+<html lang="cs">
+<head>
+    <meta charset="utf-8" />
+    <title>{% trans "Invoices" %}</title>
+
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/style.less" type="text/less" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}jqueryui/css/start/jquery-ui-1.8.16.custom.css" type="text/css" />
+
+    <script src="{{ STATIC_URL }}js/jquery-1.6.4.min.js" type="text/javascript"></script>
+    <script src="{{ STATIC_URL }}js/less-1.1.3.min.js" type="text/javascript"></script>
+    <script src="{{ STATIC_URL }}jqueryui/js/jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
+
+    {% uni_form_setup %}
+</head>
+
+<body>
+    <div id="dialog"></div>
+    <menu>
+        <ul>
+            <li>{% trans "Categories" %}</li>
+            <li><a{% if menu == "category_add" %} class="active"{% endif %} href="{% url category_add %}">{% trans "Add" %}</a></li>
+            <li><a{% if menu == "category" %} class="active"{% endif %} href="{% url category %}">{% trans "List" %}</a></li>
+        </ul>
+        <ul>
+            <li>{% trans "Bills" %}</li>
+            <li><a{% if menu == "bill_add" %} class="active"{% endif %} href="{% url bill_add %}">{% trans "Add" %}</a></li>
+            <li><a{% if menu == "home" %} class="active"{% endif %} href="{% url home %}">{% trans "List" %}</a></li>
+        </ul>
+    </menu>
+    <article>
+        <ul id="notifications">
+            {% if messages %}
+                <ul>
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% else %}
+                                             class="info"{% endif %}>{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        </ul>
+        {% block content %}{% endblock %}
+    </article>
+</body>
+</html>
+

@@ -1,0 +1,11 @@
+{% extends "index.html" %}
+{% load i18n %}
+
+{% block content %}
+    <h2>{{ bill.category }} ({{ bill.value }} Kč) - {% trans "confirmation" %}</h2>
+    <form action="." enctype="multipart/form-data" method="post" id="myform" class="uniForm">
+        {% csrf_token %}
+        <p><input type="submit" class="submit" value="{% trans "Delete" %}"/><input type="button" class="submit" value="{% trans "Go back" %}" onclick="document.location='{{ back_link }}';" /></p>
+    </form>
+
+{% endblock %}

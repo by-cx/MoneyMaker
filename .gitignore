@@ -1,0 +1,10 @@
+*.pyc
+*.pyo
+*~
+wsgiadmin.egg-info/
+dist/
+build/
+wsgiadmin/settings/local.py
+wsgiadmin/settings/prod.py
+integrate_project/settings/local.py
+unit_project/settings/local.py
