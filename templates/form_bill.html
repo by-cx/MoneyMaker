@@ -1,77 +1,16 @@
-{% extends "index.html" %}
+{% extends "mobile.html" %}
 {% load i18n %}
-
-{% load uni_form_tags %}
 
 {% block content %}
     <h2>{% trans "Bill" %}</h2>
 
-    <fieldset class="uniForm">
-    <form action="." enctype="multipart/form-data" method="post" id="myform">
+    <fieldset>
+    <form action="." enctype="multipart/form-data" method="post" data-ajax="false">
         {% csrf_token %}
         
-        {{ form|as_uni_form }}
+        {{ form.as_p }}
 
         <p><input type="submit" class="submit" value="{% trans "Save" %}"/></p>
     </form>
     </fieldset>
-
-    <script type="text/javascript">
-    function submit() {
-        window.onbeforeunload = null;
-        $('#myform').submit();
-    }
-
-    /*window.onbeforeunload = function() {
-        return 'Máš ve formuláři neuložené změny.';
-    }*/
-
-    jQuery(function($){
-    $.datepicker.regional['cs'] = {
-		closeText: 'Zavřít',
-		prevText: '&#x3c;Dříve',
-		nextText: 'Později&#x3e;',
-		currentText: 'Nyní',
-		monthNames: ['leden','únor','březen','duben','květen','červen',
-        'červenec','srpen','září','říjen','listopad','prosinec'],
-		monthNamesShort: ['led','úno','bře','dub','kvě','čer',
-		'čvc','srp','zář','říj','lis','pro'],
-		dayNames: ['neděle', 'pondělí', 'úterý', 'středa', 'čtvrtek', 'pátek', 'sobota'],
-		dayNamesShort: ['ne', 'po', 'út', 'st', 'čt', 'pá', 'so'],
-		dayNamesMin: ['ne','po','út','st','čt','pá','so'],
-		//dateFormat: 'dd.mm.yy', firstDay: 1,
-		dateFormat: 'yy-mm-dd', firstDay: 1,
-		isRTL: false};
-	$.datepicker.setDefaults($.datepicker.regional['cs']);
-    });
-	//$('#id_datum').datepicker({ dateFormat: 'yy-mm-dd' });
-	$("#id_datum").datepicker();
-    $("#id_datum_zkousky").datepicker();
-	//$("#id_posledni_revize").datepicker();
-    
-    function addItem(url) {
-        $("#dialog").dialog({
-            height: 500,
-            width: 600,
-			modal: false
-        }).load(url);
-
-    }
-    function sendItem(url, item) {
-        $.post(
-                url,
-                $("#mysimpleform").serialize(),
-                function (data) {
-                    if (data.substring(0,7) == "<option") {
-                        alert("Přidáno");
-                        $("#dialog").dialog("close");
-                        $("#id_"+item).html(data);
-                    }
-                    else {
-                        $("#simpleform").html(data);
-                    }
-                }
-        );
-    }
-    </script>
 {% endblock %}

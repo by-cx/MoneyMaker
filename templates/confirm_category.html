@@ -1,11 +1,11 @@
-{% extends "index.html" %}
+{% extends "mobile.html" %}
 {% load i18n %}
 
 {% block content %}
     <h2>{{ category.name }} - {% trans "confirmation" %}</h2>
-    <form action="." enctype="multipart/form-data" method="post" id="myform" class="uniForm">
+    <form action="." enctype="multipart/form-data" method="post" id="myform" data-ajax="false">
         {% csrf_token %}
-        <p><input type="submit" class="submit" value="{% trans "Delete" %}"/><input type="button" class="submit" value="{% trans "Go back" %}" onclick="document.location='{{ back_link }}';" /></p>
+        <p><input type="submit" class="submit" value="{% trans "Delete" %}"/><input type="button" class="submit" value="{% trans "Go back" %}" onclick="document.location='{% url category %}';" /></p>
     </form>
 
 {% endblock %}

@@ -1,0 +1,18 @@
+{% if page_obj %}
+    <br>
+    <div data-role="footer">
+        <div data-role="navbar">
+            <ul>
+                {% if page_obj.has_previous %}
+                    <li><a href="?page=1">&laquo; První</a></li>
+                    <li><a href="?page={{ page_obj.previous_page_number }}">&laquo; Předchozí</a></li>
+                {% endif %}
+                    <li><a href="?page={{ page_obj.number }}">{{ page_obj.number }}/{{ paginator.count }}</a></li>
+                {% if page_obj.has_next %}
+                    <li><a href="?page={{ page_obj.next_page_number }}">Další &raquo;</a></li>
+                    <li><a href="?page=last">Poslední &raquo;</a></li>
+                {% endif %}
+            </ul>
+        </div><!-- /navbar -->
+    </div><!-- /footer -->
+{% endif %}

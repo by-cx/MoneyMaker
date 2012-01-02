@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+{% load i18n %}
+<html>
+<head>
+    <title>{% trans "MoneyMaker" %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>
+</head>
+<body>
+
+<div data-role="page" id="year">
+
+    <div data-role="header">
+        <a href="/" data-icon="home">{% trans "Home" %}</a>
+        <h1>{% trans "MoneyMaker" %}</h1>
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#year" class="ui-btn-active">{% trans "This year" %}</a></li>
+            </ul>
+        </div>
+    </div><!-- /header -->
+
+    <div data-role="content">
+        <ul data-role="listview">
+            <li data-role="list-divider">{% trans "Whole year" %} <span class="ui-li-count">{{ year_stats_total.count }}</span></li>
+            <li><p><strong>{% trans "Total regularly" %}</strong> {{ year_stats_total.regularly|floatformat:2 }} Kč</p></li>
+            <li><p><strong>{% trans "Total fixed" %}</strong> {{ year_stats_total.fixed|floatformat:2 }} Kč</p></li>
+            <li><p><strong>{% trans "Total" %}</strong> {{ year_stats_total.total|floatformat:2 }} Kč</p></li>
+            {% for month in year_stats %}
+                {% if month.categories %}
+                <li data-role="list-divider">{{ month.name }}-{{ year_stats_year }} ({{ month.regularly|floatformat:0 }}/{{ month.fixed|floatformat:0 }}) <span class="ui-li-count">{{ month.count }}</span></li>
+                {% for key, value in month.categories.items %}
+                <li>
+                    <h3>{{ key }}</h3>
+                    <p>{{ value|floatformat:2 }} Kč</p>
+                </li>
+                {% endfor %}
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+
+</div><!-- /page -->
+
+</body>
+</html>

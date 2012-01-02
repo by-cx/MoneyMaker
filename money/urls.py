@@ -1,9 +1,10 @@
 from django.conf.urls.defaults import patterns, include, url
+from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
 from money.forms import CategoryForm, BillForm
 from money.models import Bill, Category
-from money.views import BillCreateView
+from money.views import BillCreateView, StatsView
 from django.contrib.auth.decorators import login_required
 
 urlpatterns = patterns('',
@@ -44,9 +45,13 @@ urlpatterns = patterns('',
         form_class=BillForm,
         success_url="/",
     )), name="bill_update"),
+    url(r"^stats/$", login_required(StatsView.as_view()), name="stats"),
+    url(r"^mobile/$", login_required(TemplateView.as_view(
+        template_name="mobile.html",
+    )), name="mobile"),
     url(r"^", login_required(ListView.as_view(
         queryset=Bill.objects.order_by("date").reverse(),
         template_name="list_bill.html",
-        paginate_by=100,
+        paginate_by=20,
     )), name="home"),
 )

@@ -1,36 +1,28 @@
-{% extends "index.html" %}
+{% extends "mobile.html" %}
 {% load i18n %}
 
 {% block content %}
-    <h1>Categories</h1>
+    <p><a href="{% url category_add %}" data-role="button" rel="external">{% trans "Add new item" %}</a></p>
+    <br>
 
-    <a href="{% url category_add %}">{% trans "Add new item" %}</a>
-
-    <table>
-        <thead>
-        <tr>
-            <th>{% trans "Name" %}</th>
-            <th>{% trans "Note" %}</th>
-            <th>{% trans "Action" %}</th>
-        </tr>
-        </thead>
+    <ul data-role="listview">
+        <li data-role="list-divider">Categories</li>
         {% if object_list %}
-            <tbody id="objects_list">
             {% for object in object_list %}
-                <tr>
-                    <td>{{ object.name }}</td>
-                    <td><em>{{ object.note }}</em></td>
-                    <td>
-                        <a href="{% url category_update pk=object.id %}" title="{% trans "Update" %}">{% trans "Update" %}</a>
-                        <a href="{% url category_remove pk=object.id %}" title="{% trans "Delete" %}" class="red">{% trans "Delete" %}</a>
-                    </td>
-                </tr>
+                <li id="{{ object.id }}">
+                    <a href="{% url category_update pk=object.id %}" title="{% trans "Update" %}">
+                        <p><strong>{{ object.name }}</strong></p>
+                        <p>{{ object.note }}</p>
+                        <!--<a href="{% url category_remove pk=object.id %}" title="{% trans "Delete" %}" data-role="button" data-icon="delete">{% trans "Delete" %}</a>-->
+                    </a>
+                </li>
             {% endfor %}
-            </tbody>
         {% endif %}
-    </table>
+    </ul>
 
-    <div class="pagination">
-        {% include "paginator.html" %}
-    </div>
+    <script type="text/javascript">
+        $("[data-role=listview] li").taphold(function() {
+            document.location = "/category/rm/"+$(this).attr("id")+"/";
+        });
+    </script>
 {% endblock %}

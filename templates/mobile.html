@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+{% load i18n %}
+<html>
+<head>
+    <title>{% trans "MoneyMaker" %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>
+</head>
+<body>
+
+<div data-role="page" id="main">
+
+    <div data-role="header">
+        <a href="/" data-icon="home">{% trans "Home" %}</a>
+        <h1>{% trans "MoneyMaker" %}</h1>
+        <div data-role="navbar">
+            <ul>
+                <li><a href="{% url stats %}"{% if 0 %} class="ui-btn-active"{% endif %}>{% trans "Stats" %}</a></li>
+                <li><a href="{% url home %}"{% if bill_list or form.display_name == "Bill" %} class="ui-btn-active"{% endif %}>{% trans "Bills" %}</a></li>
+                <li><a href="{% url category %}"{% if category_list or form.display_name == "Category" %} class="ui-btn-active"{% endif %}>{% trans "Categories" %}</a></li>
+            </ul>
+        </div>
+    </div><!-- /header -->
+
+    <div data-role="content">
+        {% if messages %}
+            <ul data-role="listview" id="notifications">
+                {% for message in messages %}
+                    <!-- {{ message.tags }} -->
+                    <li style="color: #3D9939;">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        {% block content %}{% endblock %}
+    </div>
+
+    {% include "paginator_mobile.html" %}
+
+</div><!-- /page -->
+
+</body>
+</html>

@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 class Category(models.Model):
     name = models.CharField(_("Name"), max_length=64)
     note = models.TextField(_("Note"), blank=True, null=True)
+    fixed = models.BooleanField(_("Fixed bill"), help_text=_("Just one time shot (car service, new fridgem ...)"), default=False)
 
     def __unicode__(self):
         return self.name

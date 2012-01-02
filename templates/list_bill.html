@@ -1,38 +1,29 @@
-{% extends "index.html" %}
+{% extends "mobile.html" %}
 {% load i18n %}
 
 {% block content %}
-    <h1>{% trans "Bills" %}</h1>
+    <p><a href="{% url bill_add %}" data-role="button" rel="external">{% trans "Add new item" %}</a></p>
+    <br>
 
-    <a href="{% url bill_add %}">{% trans "Add new item" %}</a>
-
-    <table>
-        <thead>
-        <tr>
-            <th>{% trans "Date" %}</th>
-            <th>{% trans "Category" %}</th>
-            <th>{% trans "Value" %}</th>
-            <th>{% trans "Action" %}</th>
-        </tr>
-        </thead>
+    <ul data-role="listview">
+        <li data-role="list-divider">{% trans "Bills" %}</li>
         {% if object_list %}
-            <tbody id="objects_list">
             {% for object in object_list %}
-                <tr>
-                    <td>{{ object.date }}</td>
-                    <td>{{ object.category }}<br>{{ object.user }}</td>
-                    <td>{{ object.value }}</td>
-                    <td>
-                        <a href="{% url bill_update pk=object.id %}" title="{% trans "Update" %}">{% trans "Update" %}</a>
-                        <a href="{% url bill_remove pk=object.id %}" title="{% trans "Delete" %}" class="red">{% trans "Delete" %}</a>
-                    </td>
-                </tr>
+                <li id="{{ object.id }}">
+                    <a href="{% url bill_update pk=object.id %}" title="{% trans "Update" %}">
+                    <p><strong>{{ object.value }} Kč</strong> {{ object.category }}</p>
+                    <p>{{ object.user }} - {{ object.date }}</p>
+                    <!--<a href="{% url bill_remove pk=object.id %}" title="{% trans "Delete" %}" data-role="button" data-icon="delete">{% trans "Delete" %}</a>-->
+                    {% if object.note %}<p><em>{{ object.note }}</em></p>{% endif %}
+                    </a>
+                </li>
             {% endfor %}
-            </tbody>
         {% endif %}
-    </table>
+    </ul>
 
-    <div class="pagination">
-        {% include "paginator.html" %}
-    </div>
+    <script type="text/javascript">
+    $("[data-role=listview] li").taphold(function() {
+        document.location = "/bill/rm/"+$(this).attr("id")+"/";
+    });
+    </script>
 {% endblock %}
