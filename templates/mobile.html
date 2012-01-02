@@ -15,6 +15,7 @@
     <div data-role="header">
         <a href="/" data-icon="home">{% trans "Home" %}</a>
         <h1>{% trans "MoneyMaker" %}</h1>
+        <a href="{% url django.contrib.auth.views.logout %}" data-icon="home">{% trans "Logout" %}</a>
         <div data-role="navbar">
             <ul>
                 <li><a href="{% url stats %}"{% if 0 %} class="ui-btn-active"{% endif %}>{% trans "Stats" %}</a></li>
