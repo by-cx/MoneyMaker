@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
     <script type="text/javascript" src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 </head>
 <body>
 
@@ -37,12 +38,57 @@
                     <p>{{ value|floatformat:2 }} Kč</p>
                 </li>
                 {% endfor %}
+                <li><a href="#month-{{ month.name }}" data-role="button">{% trans "Graphs" %}</a></li>
                 {% endif %}
             {% endfor %}
         </ul>
     </div>
 
 </div><!-- /page -->
+
+{% for month in year_stats %}
+<div data-role="page" id="month-{{ month.name }}">
+
+    <script type="text/javascript">
+        google.load("visualization", "1", {packages:["corechart"]});
+        google.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Task');
+            data.addColumn('number', 'Hours per Day');
+            data.addRows([
+                {% for key, value in month.categories.items %}['{{ key }}', {{ value|floatformat:0 }}],
+                {% endfor %}['', 0]
+            ]);
+
+            var options = {
+                width: 450, height: 300,
+                title: 'My Daily Activities'
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('chart_div_{{ month.name }}'));
+            chart.draw(data, options);
+        }
+    </script>
+
+    <div data-role="header">
+        <a href="/" data-icon="home">{% trans "Home" %}</a>
+        <h1>{{ month.name }}</h1>
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#year" class="ui-btn-active">{% trans "This year" %}</a></li>
+            </ul>
+        </div>
+    </div><!-- /header -->
+
+    <div data-role="content">
+        <div id="chart_div_{{ month.name }}"></div>
+    </div>
+
+</div><!-- /page -->
+{% endfor %}
+
+<div id="chart_div"></div>
 
 </body>
 </html>
